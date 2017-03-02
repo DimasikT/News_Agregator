@@ -18,7 +18,7 @@
     </tr>
     <c:forEach items="${news}" var="n">
         <tr>
-            <td>${n.name}</td>
+            <td>${n.title}</td>
             <td>${n.text}</td>
         </tr>
     </c:forEach>

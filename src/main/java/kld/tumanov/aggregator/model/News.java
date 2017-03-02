@@ -9,7 +9,7 @@ public class News {
 
     private Integer id;
 
-    private String name;
+    private String title;
 
     private String text;
 
@@ -25,12 +25,12 @@ public class News {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getText() {
@@ -63,7 +63,7 @@ public class News {
         if (o == null || getClass() != o.getClass()) return false;
         News news = (News) o;
         return Objects.equals(id, news.id) &&
-                Objects.equals(name, news.name) &&
+                Objects.equals(title, news.title) &&
                 Objects.equals(text, news.text) &&
                 Objects.equals(image, news.image) &&
                 Objects.equals(site, news.site);
@@ -71,12 +71,12 @@ public class News {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, text, image, site);
+        return Objects.hash(id, title, text, image, site);
     }
 
     @Override
     public String toString() {
-        return "News:\n\t" + name + "\n" +
+        return "News:\n\t" + title + "\n" +
                 "Text:\n\t" + text + "\n";
     }
 }

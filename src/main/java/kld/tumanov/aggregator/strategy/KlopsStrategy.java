@@ -41,7 +41,7 @@ public class KlopsStrategy implements Strategy {
                     }
 
                     News n = new News();
-                    n.setName(name);
+                    n.setTitle(name);
                     n.setText(text);
                     allNews.add(n);
                 }

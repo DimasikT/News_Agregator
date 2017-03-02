@@ -5,7 +5,7 @@
     <jmxConfigurator/>
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>../../log/agregator.log</file>
+        <file>${AGG_ROOT}/log/aggregator.log</file>
 
         <encoder>
             <charset>UTF-8</charset>

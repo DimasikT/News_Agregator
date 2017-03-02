@@ -1,6 +1,6 @@
 package kld.tumanov.aggregator.web;
 
-import kld.tumanov.aggregator.NewsController;
+import kld.tumanov.aggregator.web.news.NewsController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
@@ -26,7 +26,7 @@ public class NewsServlet extends HttpServlet {
 
         NewsController controller = wac.getBean(NewsController.class);
 
-        req.setAttribute("news", controller.getAllNews());
+//        req.setAttribute("news", controller.getAllNews());
         req.getRequestDispatcher("/news.jsp").forward(req, resp);
 
     }

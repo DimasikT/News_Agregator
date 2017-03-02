@@ -8,7 +8,7 @@
 <jsp:include page="fragments/headTag.jsp"/>
 
 <body>
-<h2><a href="index.html">Home</a></h2>
+<h2><a href="../../index.html">Home</a></h2>
 <h2>News at Klops.ru</h2>
 
 <table>

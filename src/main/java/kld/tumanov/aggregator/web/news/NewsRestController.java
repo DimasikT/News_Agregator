@@ -1,31 +1,23 @@
-package kld.tumanov.aggregator;
-
-
-
-
-import java.util.ArrayList;
+package kld.tumanov.aggregator.web.news;
 
 import kld.tumanov.aggregator.model.News;
 import kld.tumanov.aggregator.strategy.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class NewsController {
+
+@Controller
+public class NewsRestController {
 
     @Autowired
     private Provider provider;
 
-    public NewsController(Provider... providers) {
-
-    }
-
-
     public List<News> getAllNews() {
         List<News> news = new ArrayList<>();
-            news.addAll(provider.getNews());
+        news.addAll(provider.getNews());
         return news;
     }
 }

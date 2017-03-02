@@ -1,27 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setBundle basename="messages.app"/>
+
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>News at Klops.ru</title>
-    <style type="text/css">
-        table {
-            border: 4px double black; /* Рамка вокруг таблицы */
-            border-collapse: collapse; /* Отображать только одинарные линии */
-        }
-        th {
-            text-align: left; /* Выравнивание по левому краю */
-            background: #ccc; /* Цвет фона ячеек */
-            padding: 5px; /* Поля вокруг содержимого ячеек */
-            border: 1px solid black; /* Граница вокруг ячеек */
-        }
-        td {
-            padding: 5px; /* Поля вокруг содержимого ячеек */
-            border: 1px solid black; /* Граница вокруг ячеек */
-        }
-    </style>
-</head>
+<jsp:include page="fragments/headTag.jsp"/>
 
 <body>
 <h2><a href="index.html">Home</a></h2>

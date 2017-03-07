@@ -2,9 +2,8 @@ package kld.tumanov.aggregator.model;
 
 import java.util.Objects;
 
-/**
- * Created by Admin on 02.03.2017.
- */
+
+
 public class News {
 
     private Integer id;
@@ -15,7 +14,7 @@ public class News {
 
     private String image;
 
-    private String site;
+    private String url;
 
     public Integer getId() {
         return id;
@@ -49,12 +48,12 @@ public class News {
         this.image = image;
     }
 
-    public String getSite() {
-        return site;
+    public String getUrl() {
+        return url;
     }
 
-    public void setSite(String site) {
-        this.site = site;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
@@ -66,12 +65,12 @@ public class News {
                 Objects.equals(title, news.title) &&
                 Objects.equals(text, news.text) &&
                 Objects.equals(image, news.image) &&
-                Objects.equals(site, news.site);
+                Objects.equals(url, news.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, text, image, site);
+        return Objects.hash(id, title, text, image, url);
     }
 
     @Override

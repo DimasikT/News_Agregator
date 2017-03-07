@@ -16,21 +16,20 @@ import java.util.List;
 @Component
 public class KlopsStrategy implements Strategy {
 
-    private static final String URL_FORMAT = "http://klops.ru/news?page=%d";
+    private static final String URL_FORMAT = "http://klops.ru/news?page=1";
 
     @Override
     public List<News> getNews() {
         List<News> allNews = new ArrayList<>();
-        int page = 1;
         try {
-            do {
-                Document newsList = getDocument(String.format(URL_FORMAT,  page++));
+                Document newsList = getDocument(URL_FORMAT);
                 Elements elements = newsList.select("[class=b-main-news__item]");
                 if (elements.isEmpty()) {
-                    break;
+                    return allNews;
                 }
                 for (Element element : elements){
-                    Document news = getDocument(element.select("[class=b-link]").first().attr("href"));
+                    String link = element.select("[class=b-link]").first().attr("href");
+                    Document news = getDocument(link);
                     Element title = news.select("title").first();
                     String name = title.text();
                     String text = "";
@@ -43,10 +42,9 @@ public class KlopsStrategy implements Strategy {
                     News n = new News();
                     n.setTitle(name);
                     n.setText(text);
+                    n.setUrl(link);
                     allNews.add(n);
                 }
-            }while(page < 2);
-
         }catch (IOException ignore) {
 
         }
@@ -59,7 +57,6 @@ public class KlopsStrategy implements Strategy {
         Connection connection = Jsoup.connect(url);
         connection.userAgent(userAgent);
         connection.referrer(referrer);
-
         return connection.get();
     }
 }

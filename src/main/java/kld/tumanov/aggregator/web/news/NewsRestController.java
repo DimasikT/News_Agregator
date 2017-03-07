@@ -1,7 +1,8 @@
 package kld.tumanov.aggregator.web.news;
 
 import kld.tumanov.aggregator.model.News;
-import kld.tumanov.aggregator.strategy.Provider;
+import kld.tumanov.aggregator.service.NewsService;
+import kld.tumanov.aggregator.strategy.NewsGrabber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,11 @@ public class NewsRestController {
     private static final Logger LOG = LoggerFactory.getLogger(NewsRestController.class);
 
     @Autowired
-    private Provider provider;
+    private NewsService service;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<News> getAllNews() {
         LOG.info("getAll");
-        return provider.getNews();
+        return service.getFromTo(0, 0);
     }
 }

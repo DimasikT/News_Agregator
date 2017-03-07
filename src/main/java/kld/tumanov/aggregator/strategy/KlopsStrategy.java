@@ -2,54 +2,63 @@ package kld.tumanov.aggregator.strategy;
 
 
 import kld.tumanov.aggregator.model.News;
+import kld.tumanov.aggregator.service.NewsService;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-@Component
+@Component("KlopsStrategy")
 public class KlopsStrategy implements Strategy {
 
-    private static final String URL_FORMAT = "http://klops.ru/news?page=%d";
+    private static final String URL_FORMAT = "http://klops.ru/news?page=1";
+    private String lastNews;
+    private String tmp;
+
+    @Autowired
+    private NewsService service;
 
     @Override
     public List<News> getNews() {
         List<News> allNews = new ArrayList<>();
-        int page = 1;
         try {
-            do {
-                Document newsList = getDocument(String.format(URL_FORMAT,  page++));
-                Elements elements = newsList.select("[class=b-main-news__item]");
-                if (elements.isEmpty()) {
+            Document newsList = getDocument(URL_FORMAT);
+            Elements elements = newsList.select("[class=b-main-news__item]");
+            if (elements.isEmpty()) {
+                return allNews;
+            }
+            for (Element element : elements) {
+                Document news = getDocument(element.select("[class=b-link]").first().attr("href"));
+                Element title = news.select("title").first();
+                String name  = title.text();
+                String text = "";
+                if (checkNews(name)){
                     break;
                 }
-                for (Element element : elements){
-                    Document news = getDocument(element.select("[class=b-link]").first().attr("href"));
-                    Element title = news.select("title").first();
-                    String name = title.text();
-                    String text = "";
 
-                    Elements textBlocks = news.select("[style=text-align: justify;]");
-                    for (Element e : textBlocks){
-                        text += e.text() + "\n";
-                    }
-
-                    News n = new News();
-                    n.setTitle(name);
-                    n.setText(text);
-                    allNews.add(n);
+                Elements textBlocks = news.select("[style=text-align: justify;]");
+                for (Element e : textBlocks) {
+                    text += e.text() + "\n";
                 }
-            }while(page < 2);
 
-        }catch (IOException ignore) {
+                News n = new News();
+                n.setTitle(name);
+                n.setText(text);
+                allNews.add(n);
+            }
 
-        }
+        } catch (IOException ignore) {}
+
+        tmp = null;
+        Collections.reverse(allNews);
         return allNews;
     }
 
@@ -61,5 +70,35 @@ public class KlopsStrategy implements Strategy {
         connection.referrer(referrer);
 
         return connection.get();
+    }
+
+    //attention!!! govnokod ))
+    private boolean checkNews(String name){
+        if (lastNews != null) {
+            if(name.equals(lastNews)){
+                if (tmp != null) {
+                    lastNews = tmp;
+                    tmp = null;
+                }
+                return true;
+            } else if (tmp == null) {
+                tmp = name;
+            }
+        } else {
+            lastNews = name;
+        }
+        return false;
+    }
+
+    @Override
+    public void run() {
+        while (true){
+            service.save(getNews());
+            try {
+                Thread.sleep(1_800_000); //30 minutes
+            } catch (InterruptedException e) {
+                continue;
+            }
+        }
     }
 }

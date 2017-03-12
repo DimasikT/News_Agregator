@@ -95,7 +95,7 @@ public class KlopsStrategy implements Strategy {
         while (true){
             service.save(getNews());
             try {
-                Thread.sleep(1_800_000); //30 minutes
+                Thread.sleep(120_000); //2 minutes
             } catch (InterruptedException e) {
                 continue;
             }

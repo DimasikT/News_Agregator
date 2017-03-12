@@ -1,8 +1,11 @@
 package kld.tumanov.aggregator.service;
 
 import kld.tumanov.aggregator.model.News;
+import kld.tumanov.aggregator.model.Sequence;
 import kld.tumanov.aggregator.repository.NewsRepository;
+import kld.tumanov.aggregator.repository.SequenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +15,19 @@ import java.util.List;
 public class NewsServiceImpl implements NewsService {
 
     @Autowired
+    @Qualifier("MongoRepository")
     private NewsRepository repository;
+
+    @Autowired
+    private SequenceRepository sequence;
 
     @Override
     public List<News> save(List<News> news) {
-        return repository.save(news);
+        for (News n : news) {
+            n.setId(sequence.getNextSequenceId(News.COLLECTION_NAME));
+            repository.save(n);
+        }
+        return news;
     }
 
     @Override
@@ -35,7 +46,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> getBySite(String site) {
-        return repository.getBySite(site);
+    public List<News> getBySite(String url) {
+        return repository.getBySite(url);
     }
 }

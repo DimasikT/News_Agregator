@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface NewsRepository {
 
-    List<News> save(List<News> news);
+    void save(News news);
 
     // false if not found
-    boolean delete(int id);
+    boolean delete(long id);
 
     // null if not found
-    News get(int id);
+    News get(long id);
 
-    List<News> getFromTo(int begin, int end);
+    List<News> getFromTo(long begin, long end);
 
-    List<News> getBySite(String site);
+    List<News> getBySite(String url);
 }

@@ -15,7 +15,7 @@ public class Main {
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-mvc.xml", "spring/spring-app.xml")) {
 
             NewsRepository repo = appCtx.getBean(NewsRepositoryImpl.class);
-            System.out.println(repo.getBySite("mysite.ru"));
+            System.out.println(repo.get(100001));
 
         }
     }

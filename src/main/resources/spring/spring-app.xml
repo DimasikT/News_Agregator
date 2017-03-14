@@ -11,13 +11,10 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="kld.tumanov.**.strategy"/>
+
     <context:component-scan base-package="kld.tumanov.**.repository"/>
     <context:component-scan base-package="kld.tumanov.**.service"/>
 
-    <util:list id="strategies" list-class="java.util.ArrayList">
-        <ref bean="KlopsStrategy"/>
-    </util:list>
 
     <context:property-placeholder location="classpath:database.properties"/>
 

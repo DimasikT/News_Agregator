@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
  * Created by Admin on 12.03.2017.
  */
 
-@Repository("MongoRepository")
+@Repository
 public class NewsRepositoryImpl implements NewsRepository {
     private static final Logger LOG = LoggerFactory.getLogger(NewsRepositoryImpl.class);
 
     @Autowired
-    CrudNewsRepository crudRepository;
+    private CrudNewsRepository crudRepository;
 
     @Override
     public void save(News news) {
@@ -62,6 +62,11 @@ public class NewsRepositoryImpl implements NewsRepository {
     public List<News> getBySite(String url) {
         LOG.info("Get news with url - " + url);
         return crudRepository.findByUrlOrderByIdDesc(url);
+    }
+
+    @Override
+    public List<News> getAll() {
+        return crudRepository.findAll();
     }
 
 }

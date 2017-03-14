@@ -18,4 +18,6 @@ public interface NewsRepository {
     List<News> getFromTo(long begin, long end);
 
     List<News> getBySite(String url);
+
+    List<News> getAll();
 }

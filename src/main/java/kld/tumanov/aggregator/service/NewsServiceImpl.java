@@ -15,7 +15,6 @@ import java.util.List;
 public class NewsServiceImpl implements NewsService {
 
     @Autowired
-    @Qualifier("MongoRepository")
     private NewsRepository repository;
 
     @Autowired

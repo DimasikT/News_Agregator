@@ -26,7 +26,7 @@ public class NewsServiceImplTest {
     @Autowired
     private NewsRepository repository;
 
-    private long count = 4;
+    private long count = 5;
 
 
     @Before
@@ -44,7 +44,7 @@ public class NewsServiceImplTest {
 
     @After
     public void clear(){
-        for (long i = 0; i < count; i++) {
+        for (long i = 1; i < count; i++) {
             repository.delete(i);
         }
     }
@@ -60,7 +60,7 @@ public class NewsServiceImplTest {
     @Test
     public void getBySite() throws Exception {
         List<News> news = repository.getBySite("mysite.ru");
-        assertEquals(4, news.size());
+        assertEquals(5, news.size());
     }
 
     @Test

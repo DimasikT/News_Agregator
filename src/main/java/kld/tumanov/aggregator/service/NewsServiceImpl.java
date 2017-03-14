@@ -41,7 +41,11 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> getFromTo(int begin, int end) {
-        return repository.getFromTo(begin, end);
+        List<News> news = repository.getFromTo(begin, end);
+        for (News n : news) {
+            System.out.println(n);
+        }
+        return news;
     }
 
     @Override

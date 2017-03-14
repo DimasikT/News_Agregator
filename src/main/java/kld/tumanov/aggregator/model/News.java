@@ -16,7 +16,7 @@ public class News implements Serializable{
     public static final String COLLECTION_NAME = "news";
 
     @Id
-    private long id;
+    private Long id;
 
     private String title;
 

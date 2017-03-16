@@ -24,11 +24,7 @@ public class NewsRestController {
     private NewsService service;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-<<<<<<< HEAD
-    public List<News> getAllNews() {
-        LOG.info("rest getAll");
-        return provider.getNews();
-=======
+
     public List<News> getLast10() {
         LOG.info("Get last 10 news");
         return service.getLast10();
@@ -44,6 +40,5 @@ public class NewsRestController {
     public List<News> getMore(@PathVariable("id") long id){
         LOG.info("Get more news");
         return service.getMore(id);
->>>>>>> dev
     }
 }

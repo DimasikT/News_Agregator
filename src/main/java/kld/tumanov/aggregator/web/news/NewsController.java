@@ -1,6 +1,7 @@
 package kld.tumanov.aggregator.web.news;
 
-import kld.tumanov.aggregator.strategy.Provider;
+
+import kld.tumanov.aggregator.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class NewsController {
 
     @Autowired
-    private Provider provider;
+    private NewsService service;
 
     @RequestMapping(value = "/news", method = RequestMethod.GET)
-    public String getAllNews(Model model) {
-        model.addAttribute("news", provider.getNews());
+    public String getNews(Model model) {
+        model.addAttribute("news", service.getLast10());
         return "news";
     }
 }

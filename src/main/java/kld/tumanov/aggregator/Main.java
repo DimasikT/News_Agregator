@@ -1,6 +1,7 @@
 package kld.tumanov.aggregator;
 
-import kld.tumanov.aggregator.web.news.NewsController;
+import kld.tumanov.aggregator.repository.NewsRepository;
+import kld.tumanov.aggregator.repository.mongo.NewsRepositoryImpl;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -11,9 +12,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
 
     public static void main(String[] args) {
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
-            NewsController controller = appCtx.getBean(NewsController.class);
-//            controller.getAllNews().forEach(System.out::println);
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-mvc.xml", "spring/spring-app.xml")) {
+
+            NewsRepository repo = appCtx.getBean(NewsRepositoryImpl.class);
+            System.out.println(repo.get(100001));
+
         }
     }
 }

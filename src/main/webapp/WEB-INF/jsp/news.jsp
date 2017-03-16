@@ -11,12 +11,14 @@
 
 <table>
     <tr>
+        <th width="100">Icon</th>
         <th width="100">Title</th>
         <th width="400">News</th>
         <th width="400">Link</th>
     </tr>
     <c:forEach items="${news}" var="n">
         <tr>
+            <td><img src="${n.icon}"/></td>
             <td>${n.title}</td>
             <td>${n.text}</td>
             <td>${n.url}</td>

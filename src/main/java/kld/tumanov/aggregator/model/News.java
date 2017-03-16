@@ -1,26 +1,42 @@
 package kld.tumanov.aggregator.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Created by Admin on 02.03.2017.
+ */
 
 
-public class News {
+@Document(collection = News.COLLECTION_NAME)
+public class News implements Serializable{
 
-    private Integer id;
+    public static final String COLLECTION_NAME = "news";
+
+    @Id
+    private Long id;
 
     private String title;
 
     private String text;
 
+    private String icon;
+
     private String image;
 
     private String url;
 
-    public Integer getId() {
+    public News() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,6 +62,14 @@ public class News {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getUrl() {
@@ -75,7 +99,6 @@ public class News {
 
     @Override
     public String toString() {
-        return "News:\n\t" + title + "\n" +
-                "Text:\n\t" + text + "\n";
+        return "ID - " + id + " title: " + title + "\n";
     }
 }

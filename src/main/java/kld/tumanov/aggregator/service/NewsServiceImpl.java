@@ -40,9 +40,18 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> getFromTo(int begin, int end) {
-        List<News> news = repository.getFromTo(begin, end);
-        return news;
+    public List<News> getLast10() {
+        return repository.getLast10();
+    }
+
+    @Override
+    public List<News> updateList(long id) {
+        return repository.updateList(id);
+    }
+
+    @Override
+    public List<News> getMore(long id) {
+        return repository.getMore(id);
     }
 
     @Override

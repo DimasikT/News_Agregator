@@ -20,6 +20,8 @@ import java.util.List;
 public class KlopsStrategy implements Strategy {
 
     private static final String URL_FORMAT = "http://klops.ru/news?page=1";
+    private static final String URL_HOME = "http://klops.ru";
+
     private String lastNews;
     private String tmp;
 
@@ -29,33 +31,56 @@ public class KlopsStrategy implements Strategy {
     @Override
     public List<News> getNews() {
         List<News> allNews = new ArrayList<>();
+        Document newsList;
         try {
-            Document newsList = getDocument(URL_FORMAT);
-            Elements elements = newsList.select("[class=b-main-news__item]");
-            if (elements.isEmpty()) {
+            newsList = getDocument(URL_FORMAT);
+        }catch (IOException e){
+            e.printStackTrace();
+            return allNews;
+        }
+
+            Elements items = newsList.select("[class=b-main-news__item]");
+            if (items.isEmpty()) {
                 return allNews;
             }
-            for (Element element : elements) {
-                Document news = getDocument(element.select("[class=b-link]").first().attr("href"));
-                Element title = news.select("title").first();
-                String name  = title.text();
-                String text = "";
-                if (checkNews(name)){
+            for (Element item : items) {
+                String icon = URL_HOME + item.select("[class=b-icon]").first().attr("src");
+                String url = item.select("[class=b-link]").first().attr("href");
+
+                Document news;
+                try {
+                    news = getDocument(url);
+                }catch (IOException ignore){ continue; }
+
+                String title = news.select("title").first().text();
+
+                if (checkNews(title)){
                     break;
                 }
 
+                Element el = news.select("[rel='image_src']").first();
+                String image;
+                if (el != null){
+                    image = el.attr("href");
+                } else {
+                    image = "no image";
+                }
+
+
                 Elements textBlocks = news.select("[style=text-align: justify;]");
+                String text = "";
                 for (Element e : textBlocks) {
                     text += e.text() + "\n";
                 }
 
                 News n = new News();
-                n.setTitle(name);
+                n.setTitle(title);
                 n.setText(text);
+                n.setIcon(icon);
+                n.setImage(image);
+                n.setUrl(url);
                 allNews.add(n);
             }
-
-        } catch (IOException ignore) {}
 
         tmp = null;
         Collections.reverse(allNews);

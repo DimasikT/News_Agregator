@@ -22,6 +22,8 @@ public class News implements Serializable{
 
     private String text;
 
+    private String icon;
+
     private String image;
 
     private String url;
@@ -59,6 +61,14 @@ public class News implements Serializable{
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getUrl() {

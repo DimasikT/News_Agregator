@@ -40,23 +40,6 @@ public class NewsRepositoryImpl implements NewsRepository {
         return crudRepository.findOne(id);
     }
 
-    @Override
-    public List<News> getFromTo(long begin, long end) {
-        if (begin == 0 && end == 0) {
-            LOG.info("Get last 10 news");
-            return crudRepository.findAll().stream()
-                    .sorted((n1, n2) -> (n2.getId().compareTo(n1.getId())))
-                    .limit(10)
-                    .collect(Collectors.toList());
-
-        } else if (end == 0) {
-            LOG.info("Get news from " + begin);
-            return crudRepository.findByIdGreaterThan(begin);
-        } else {
-            LOG.info("Get from " + begin + " to " + end);
-            return crudRepository.findByIdLessThan(begin).stream().limit(10).collect(Collectors.toList());
-        }
-    }
 
     @Override
     public List<News> getBySite(String url) {
@@ -67,6 +50,27 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public List<News> getAll() {
         return crudRepository.findAll();
+    }
+
+    @Override
+    public List<News> getLast10() {
+        LOG.info("Get last 10 news");
+        return crudRepository.findAll().stream()
+                .sorted((n1, n2) -> (n2.getId().compareTo(n1.getId())))
+                .limit(10)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<News> updateList(long id) {
+        LOG.info("Update news");
+        return crudRepository.findByIdGreaterThan(id);
+    }
+
+    @Override
+    public List<News> getMore(long id) {
+        LOG.info("Get more news");
+        return crudRepository.findByIdLessThan(id).stream().limit(10).collect(Collectors.toList());
     }
 
 }

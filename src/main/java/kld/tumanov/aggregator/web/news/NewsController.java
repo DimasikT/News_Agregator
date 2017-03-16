@@ -16,7 +16,7 @@ public class NewsController {
 
     @RequestMapping(value = "/news", method = RequestMethod.GET)
     public String getNews(Model model) {
-        model.addAttribute("news", service.getFromTo(0, 0));
+        model.addAttribute("news", service.getLast10());
         return "news";
     }
 }

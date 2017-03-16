@@ -36,6 +36,7 @@ public class NewsServiceImplTest {
             news.setId(i);
             news.setTitle("Test news " + i);
             news.setText("Bla bla bla " + i);
+            news.setIcon("no icon");
             news.setImage("No image");
             news.setUrl("mysite.ru");
             repository.save(news);

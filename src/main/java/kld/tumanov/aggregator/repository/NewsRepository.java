@@ -15,9 +15,14 @@ public interface NewsRepository {
     // null if not found
     News get(long id);
 
-    List<News> getFromTo(long begin, long end);
-
     List<News> getBySite(String url);
 
     List<News> getAll();
+
+    List<News> getLast10();
+
+    List<News> updateList(long id);
+
+    List<News> getMore(long id);
+
 }

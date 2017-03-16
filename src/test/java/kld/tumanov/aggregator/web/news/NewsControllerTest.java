@@ -19,14 +19,7 @@ public class NewsControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("news"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/news.jsp"))
-                .andExpect(model().attribute("news", hasSize(20)));
-//                .andExpect(model().attribute("users", hasItem(
-//                        allOf(
-//                                hasProperty("id", is(START_SEQ)),
-//                                hasProperty("name", is(USER.getName()))
-//                        )
-//                )));
-
+                .andExpect(model().attribute("news", hasSize(10)));
     }
 
 }

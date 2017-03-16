@@ -1,11 +1,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
 
@@ -18,7 +16,7 @@
 
     <context:property-placeholder location="classpath:database.properties"/>
 
-    <mongo:mongo-client id="mongo" host="localhost" port="27017" credentials="admin:passwd@newsagg" />
+    <mongo:mongo-client id="mongo" host="ds145299.mlab.com" port="45299" credentials="admin:passwd@newsagg" />
 
     <mongo:repositories base-package="kld.tumanov.**.repository.mongo"/>
 

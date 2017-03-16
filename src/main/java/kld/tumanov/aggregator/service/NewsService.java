@@ -12,7 +12,11 @@ public interface NewsService {
 
     News get(int id);
 
-    List<News> getFromTo(int begin, int end);
+    List<News> getLast10();
+
+    List<News> updateList(long id);
+
+    List<News> getMore(long id);
 
     List<News> getBySite(String site);
 
